@@ -1,0 +1,88 @@
+% cnmbeamer inner theme 2009/11/01
+%
+% Copyright (c) 2006,2007,2008,2009 Wouter Kager
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to
+% deal in the Software without restriction, including without limitation the
+% rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+% sell copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+% FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+% IN THE SOFTWARE.
+
+\mode<presentation>
+
+% override the list commands defined in beamerbaselocalstructure.sty:
+
+\def\@listi{%
+ \leftmargin\leftmargini
+ \topsep2\p@\@plus\p@\@minus\p@
+ \parsep\z@
+ \itemsep2\p@\@plus\p@\@minus\p@}
+\let\@listI\@listi
+\def\@listii{%
+ \leftmargin\leftmarginii
+ \topsep2\p@\@plus\p@\@minus\p@
+ \parsep\z@
+ \itemsep2\p@\@plus\p@\@minus\p@}
+\def\@listiii{%
+ \leftmargin\leftmarginiii
+ \topsep2\p@\@plus\p@\@minus\p@
+ \parsep\z@
+ \itemsep2\p@\@plus\p@\@minus\p@}
+
+\def\beamer@enum@{%
+ \beamer@computepref\@itemdepth% sets \beameritemnestingprefix
+ \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}%
+ \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}%
+ \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}%
+ \expandafter
+  \list{\usebeamertemplate{\beamer@enumtempl}}
+   {\usecounter\@enumctr%
+	\def\makelabel##1{{%
+	 \usebeamerfont*{enumerate \beameritemnestingprefix item}%
+	 \usebeamercolor[fg]{enumerate \beameritemnestingprefix item}##1}\hss}}%
+ \beamer@cramped%
+ \raggedright%
+ \beamer@firstlineitemizeunskip}
+
+\def\insertenumlabel{\@arabic\c@enumi}
+\def\insertsubenumlabel{\@alph\c@enumii}
+\def\insertsubsubenumlabel{\@roman\c@enumiii}
+
+\defbeamertemplate*{enumerate item}{cnmbeamer}{\insertenumlabel.}
+\defbeamertemplate*{enumerate subitem}{cnmbeamer}{\insertsubenumlabel.}
+\defbeamertemplate*{enumerate subsubitem}{cnmbeamer}{\insertsubsubenumlabel.}
+
+\renewcommand{\itemize}[1][]{%
+ \beamer@ifempty{#1}{}{\def\beamer@defaultospec{#1}}%
+ \ifnum\@itemdepth>2\relax\@toodeep\else%
+  \advance\@itemdepth\@ne%
+  \beamer@computepref\@itemdepth% sets \beameritemnestingprefix
+  \usebeamerfont{itemize/enumerate \beameritemnestingprefix body}%
+  \usebeamercolor[fg]{itemize/enumerate \beameritemnestingprefix body}%
+  \usebeamertemplate{itemize/enumerate \beameritemnestingprefix body begin}%
+  \list{\usebeamertemplate{itemize \beameritemnestingprefix item}}
+   {\def\makelabel##1{{%
+	 \usebeamerfont*{itemize \beameritemnestingprefix item}%
+	 \usebeamercolor[fg]{itemize \beameritemnestingprefix item}##1}\hss}}%
+ \fi%
+ \beamer@cramped%
+ \raggedright%
+ \beamer@firstlineitemizeunskip}
+
+\long\def\beamer@descriptionitem#1{%
+ \def\insertdescriptionitem{#1}%
+ \hspace\labelsep{\usebeamertemplate**{description item}}\hfil}
+
+\mode<all>

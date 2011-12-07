@@ -1,0 +1,73 @@
+\documentclass{beamer}
+
+%%%%%%%%%%%%%%%%%%%%%% Do not change this %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme[sidebar,invert]{cnmbeamer}
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\newcommand{\MyLogo}{%
+\begin{textblock}{14}(105.0,5.0)
+  \vbox{\hbox to 2.17cm{\hfil\pgfuseimage{logoIST}}\vskip-1.2cm\hbox{\pgfuseimage{logoINESC}}}
+\end{textblock}
+}
+
+%\logo{\includegraphics[height=0.10\paperheight]{Logo_IST_simple_color.jpg}}
+%This requires to add \MyLogo to every frame you want to put the logo in.
+\pgfdeclareimage[height=0.6cm]{logoIST}{Logo_IST_simple_color.jpg}
+\pgfdeclareimage[height=0.8cm]{logoINESC}{inescID}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Change after here %%%%
+
+
+\title{Theme Title}
+\author{Group number\\ NUMBER Name Surname\\ NUMBER Name Surname\\ NUMBER Name Surname}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\MyLogo
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Section One}
+\begin{frame}{Main Title Header}{Subtitle Header}
+\MyLogo
+\begin{block}{A Text Bloc}
+\begin{enumerate}
+\item \textit{Item 1:} item text;
+\item \textit{Item 2:} item text;
+\item \textit{Item 3:} item text;
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\section{Section Two}
+\begin{frame}{Main Title Header}{Subtitle Header}
+\MyLogo
+\begin{block}{A Text Bloc}
+\begin{enumerate}
+\item \textit{Item 1:} item text;
+\item \textit{Item 2:} item text;
+\item \textit{Item 3:} item text;
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\section{Appendix}
+
+\begin{frame}
+\MyLogo
+\frametitle{References}
+\begin{thebibliography}{10}
+	\bibitem{Goldbach1742}[Goldbach, 1742] Christian Goldbach
+	\newblock A problem we should try to solve before the ISPN '43 deadline
+	\newblock \emph{Letter to Leonhard Euler}, 1742
+\end{thebibliography}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,358 @@
+% cnmbeamer outer theme 2009/11/01
+%
+% Copyright (c) 2006,2007,2008,2009 Wouter Kager
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to
+% deal in the Software without restriction, including without limitation the
+% rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+% sell copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+% FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+% IN THE SOFTWARE.
+
+% mini frame templates
+
+\defbeamertemplate*{mini frame earlier in current subsection}{default}[1][25]%
+ {\color{fg!#1!bg}\usebeamertemplate{mini frame}}
+\defbeamertemplate*{mini frame in earlier subsection}{default}[1][25]%
+ {\color{fg!#1!bg}\usebeamertemplate{mini frame}}
+\defbeamertemplate{mini frame earlier in current subsection}{open}%
+ {\usebeamertemplate{mini frame in current subsection}}
+\defbeamertemplate{mini frame in earlier subsection}{open}%
+ {\usebeamertemplate{mini frame in other subsection}}
+
+% process options
+
+\newif\ifbeamer@showpagenr
+\beamer@showpagenrtrue
+\DeclareOptionBeamer{showpagenr}[true]%
+ {\csname beamer@showpagenr#1\endcsname}
+
+\newif\ifbeamer@showpagetotal
+\beamer@showpagetotaltrue
+\DeclareOptionBeamer{showpagetotal}[true]%
+ {\csname beamer@showpagetotal#1\endcsname}
+
+\newif\ifbeamer@showsection
+\beamer@showsectiontrue
+\DeclareOptionBeamer{showsection}[true]%
+ {\csname beamer@showsection#1\endcsname}
+
+\newif\ifbeamer@miniframes
+\beamer@miniframestrue
+\def\beamer@miniframesopen{\beamer@miniframestrue%
+ \setbeamertemplate{mini frame earlier in current subsection}[open]%
+ \setbeamertemplate{mini frame in earlier subsection}[open]}
+\DeclareOptionBeamer{miniframes}[true]%
+ {\csname beamer@miniframes#1\endcsname}
+
+\newif\ifbeamer@sidebar
+\beamer@sidebarfalse
+\def\beamer@lefttext{left}
+\def\beamer@sidebarside{right}
+\def\beamer@sidebarleft{\beamer@sidebartrue\def\beamer@sidebarside{left}}
+\def\beamer@sidebarright{\beamer@sidebartrue\def\beamer@sidebarside{right}}
+\DeclareOptionBeamer{sidebar}[right]%
+ {\csname beamer@sidebar#1\endcsname}
+
+\DeclareOptionBeamer{hideother}%
+ {\beamer@nav@subsectionstyle{show/show/hide}}
+
+\DeclareOptionBeamer{hideall}%
+ {\beamer@nav@subsectionstyle{hide}}
+
+\newif\ifbeamer@beamernav
+\beamer@beamernavfalse
+\DeclareOptionBeamer{beamernav}[true]%
+ {\csname beamer@beamernav#1\endcsname}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\setbeamersize{text margin left=0.5cm,text margin right=0.5cm}
+
+\newdimen\beamer@sidebarwidth
+\newdimen\beamer@headheight
+\newdimen\beamer@requiredheadheight
+
+% frame header and title
+
+\usebeamerfont{frametitle}
+\beamer@sidebarwidth=2.5\baselineskip
+\beamer@headheight=1.5\baselineskip
+\beamer@requiredheadheight=\beamer@headheight
+\reset@font
+
+\defbeamertemplate*{frametitle}{cnmbeamer}{%
+ \setbox0=\hbox{\insertlogo\hskip-8pt}%
+ \ifbeamer@sidebar\else\ifbeamer@showlogo%
+  \rightskip=\wd0 plus 1fil%
+ \fi\fi%
+ \nointerlineskip%
+ \setbox0=\vbox{\vskip6pt%
+  {\usebeamerfont{frametitle}\strut\insertframetitle\par}%
+  {\usebeamerfont{framesubtitle}\insertframesubtitle\par}\vskip6pt}%
+ \ifdim\ht0>\beamer@requiredheadheight%
+  \global\beamer@requiredheadheight=\ht0%
+ \fi%
+ \vskip-\beamer@headheight%
+ \vbox to \beamer@headheight{\vfil%
+  {\usebeamercolor[fg]{frametitle}\usebeamerfont{frametitle}%
+   \strut\insertframetitle\par}%
+  {\usebeamercolor[fg]{framesubtitle}\usebeamerfont{framesubtitle}%
+   \insertframesubtitle\par}%
+  \null\vskip-1\baselineskip\vskip\dp\strutbox%
+  \vfil}}
+
+\AtEndDocument{\immediate\write\@auxout{%
+ \string\global\string\beamer@headheight=\the\beamer@requiredheadheight}%
+ \ifdim\beamer@requiredheadheight=\beamer@headheight\else
+  \ClassWarningNoLine{beamer}{Header height needs adjusting.
+   Rerun to get it right}%
+ \fi}
+
+\defbeamertemplate*{headline}{cnmbeamer}{%
+ \begin{beamercolorbox}[wd=\paperwidth]{frametitle}%
+ \ifbeamer@sidebar%
+  \ifx\beamer@sidebarside\beamer@lefttext\else\hfill\fi%
+  \usebeamercolor[bg]{logo}%
+  \vrule width\beamer@sidebarwidth height\beamer@headheight%
+  \hskip-\beamer@sidebarwidth%
+  \hbox to\beamer@sidebarwidth{\hss\vbox to\beamer@headheight{%
+   \vss\hbox{\color{fg}\insertlogo}\vss}\hfil\hskip3pt}%
+ \else%
+  \ifbeamer@showlogo%
+   \hfill\hbox{\vbox to\beamer@headheight{%
+	\vss\hbox{\color{fg}\insertlogo}\vss}\hskip3pt}%
+  \else%
+   \vrule width0pt height\beamer@headheight%
+  \fi%
+ \fi%
+ \end{beamercolorbox}%
+ {\usebeamercolor[fg]{lower separation line head}\hrule height1.5pt}}
+
+% logo
+
+\newif\ifbeamer@showlogo
+\beamer@showlogofalse
+
+\defbeamertemplate{logo}{none}{}
+\def\logo{\beamer@showlogotrue\setbeamertemplate{logo}}
+
+\def\maketitle{%
+ \bgroup%
+  \setbeamertemplate{logo}[none]%
+  \setbeamertemplate{sidebar left}[default]%
+  \setbeamertemplate{sidebar right}[cnmbeamer plain]%
+  \beamer@rightsidebar=\z@\beamer@leftsidebar=\z@%
+  \ifbeamer@sidebar%
+   \ifx\beamer@sidebarside\beamer@lefttext%
+	\everypar{\parshape=1 -\beamer@sidebarwidth \hsize}%
+   \fi%
+   \advance\textwidth by\beamer@sidebarwidth%
+   \hsize=\textwidth%
+  \fi%
+  \ifbeamer@inframe\titlepage\else\frame{\titlepage}\fi%
+ \egroup}
+
+% sidebars
+
+\def\beamer@sidebarformat#1#2#3{%
+ \begin{beamercolorbox}%
+  [wd=\beamer@sidebarwidth,leftskip=#1,rightskip=3pt plus1fil,vmode]{#2}%
+  \vbox{}#3\par\vbox{}\vskip-1.5ex%
+ \end{beamercolorbox}}
+
+\defbeamertemplate*{section in sidebar}{cnmbeamer}{%
+ \vbox{\vskip1ex%
+  \beamer@sidebarformat{3pt}{section in sidebar}%
+   {\insertsectionhead}}}
+
+\defbeamertemplate*{section in sidebar shaded}{cnmbeamer}{%
+ \vbox{\vskip1ex%
+  \beamer@sidebarformat{3pt}{section in sidebar shaded}%
+   {\insertsectionhead}}}
+
+\defbeamertemplate*{subsection in sidebar}{cnmbeamer}{%
+ \beamer@sidebarformat{5pt}{subsection in sidebar}%
+  {\insertsubsectionhead}}
+
+\defbeamertemplate*{subsection in sidebar shaded}{cnmbeamer}{%
+ \beamer@sidebarformat{5pt}{subsection in sidebar shaded}%
+  {\insertsubsectionhead}}
+
+\defbeamertemplate*{subsubsection in sidebar}{cnmbeamer}{%
+ \beamer@sidebarformat{7pt}{subsubsection in sidebar}%
+  {\insertsubsubsectionhead}}
+
+\defbeamertemplate*{subsubsection in sidebar shaded}{cnmbeamer}{%
+ \beamer@sidebarformat{7pt}{subsubsection in sidebar shaded}%
+  {\insertsubsubsectionhead}}
+
+\defbeamertemplate*{sidebar right}{cnmbeamer plain}{%
+ \vfill%
+ \ifbeamer@beamernav%
+  \llap{\usebeamertemplate***{navigation symbols}\hskip3pt}%
+  \vskip3pt%
+ \fi}
+
+\defbeamertemplate{sidebar \beamer@sidebarside}{cnmbeamer sidebar}{%
+ \beamer@tempdim=\beamer@sidebarwidth%
+ \advance\beamer@tempdim by-6pt%
+ \insertverticalnavigation{\beamer@sidebarwidth}%
+ \vfill\leavevmode%
+ \ifx\beamer@sidebarside\beamer@lefttext%
+ \else%
+  \usebeamercolor{normal text}%
+  \ifbeamer@beamernav%
+   \llap{\usebeamertemplate***{navigation symbols}\hskip3pt}%
+  \fi%
+ \fi%
+ \vskip3pt}
+
+\ifbeamer@sidebar
+ \setbeamersize{sidebar width \beamer@sidebarside=\beamer@sidebarwidth}
+ \setbeamertemplate{sidebar \beamer@sidebarside}[cnmbeamer sidebar]
+\fi
+
+% miniframes
+
+\newif\ifbeamer@firstminiframe
+\beamer@firstminiframetrue
+
+\def\slideentry#1#2#3#4#5#6{%
+ % #1 = section number, #2 = subsection number,
+ % #3 = frame number within subsection, #4 = first/last slide of frame,
+ % #5 = subsection title, #6 = part number
+ \ifnum#6=\c@part\ifnum#1>0\ifnum#3>0%
+  \ifnum#3=1%
+   \ifbeamer@firstminiframe\else\hskip\beamer@boxsize\fi%
+  \fi%
+  \hskip1pt\beamer@firstminiframefalse%
+  \ifbeamer@miniframes
+  \raise.5ex\hbox{\beamer@link(#4){%
+   \usebeamerfont{mini frame}%
+   \ifnum\c@section=#1%
+	\ifnum\c@subsection=#2%
+	 \usebeamercolor[fg]{mini frame}%
+	 \ifnum\c@subsectionslide=#3%
+	  \usebeamertemplate{mini frame}%
+	 \else%
+	  \ifnum\c@subsectionslide>#3%
+	   \usebeamertemplate{mini frame earlier in current subsection}%
+	  \else%
+	   \usebeamertemplate{mini frame in current subsection}%
+	  \fi%
+	 \fi%
+	\else%
+	 \usebeamercolor{mini frame}%
+	 \ifnum\c@subsection>#2%
+	  \usebeamertemplate{mini frame in earlier subsection}%
+	 \else%
+	  \usebeamertemplate{mini frame in other subsection}%
+	 \fi%
+	\fi%
+   \else%
+	\usebeamercolor{mini frame}%
+	\ifnum\c@section>#1%
+	 \usebeamertemplate{mini frame in earlier subsection}%
+	\else%
+	 \usebeamertemplate{mini frame in other subsection}%
+	\fi%
+   \fi}}%
+  \fi%
+ \fi\fi\fi\ignorespaces}
+
+\def\sectionentry#1#2#3#4#5{%
+ % #1 = section number, #2 = section title, #3 = first slide of section,
+ % #4 = section title, #5 = part number
+ \ifnum#5=\c@part\ifnum#1=\c@section%
+  \global\setbox\beamer@sectionbox=\hbox{%
+   \def\insertsectionhead{#2}%
+   \def\insertsectionheadnumber{#1}%
+   \def\insertpartheadnumber{#5}%
+   \usebeamerfont{section in head/foot}%
+   \usebeamercolor[fg]{section in head/foot}%
+   \usebeamertemplate{section in head/foot}}%
+ \fi%
+  \ifbeamer@firstminiframe\else\hskip2\beamer@boxsize\fi%
+ \fi%
+ \beamer@firstminiframetrue\ignorespaces}
+
+\def\partentry#1#2{\beamer@sectioncount=0\beamer@firstminiframetrue}
+
+% commands to identify and insert the last frame of every part
+
+\let\beamer@partoriginal=\beamer@part
+\def\beamer@part[#1]#2{%
+ \addtocontents{nav}{\protect\headcommand{%
+  \protect\lastframeofpart{\the\c@part}{\the\c@framenumber}}}%
+ \setcounter{framenumber}{0}\beamer@partoriginal[#1]{#2}}
+
+\def\lastframeofpart#1#2{\ifnum\c@part=#1\gdef\insertlastframeofpart{#2}\fi}
+\def\insertlastframeofpart{0}
+
+\AtEndDocument{%
+ \immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{%
+  \noexpand\lastframeofpart{\the\c@part}{\the\c@framenumber}}}}}
+
+% footline
+
+\defbeamertemplate{section in head/foot}{none}{}%
+
+\ifbeamer@showsection\else%
+ \setbeamertemplate{section in head/foot}[none]%
+\fi
+
+\def\insertnavigation{%
+ \global\setbox\beamer@sectionbox=\hbox{}\dohead%
+ \ht\beamer@sectionbox=0pt\dp\beamer@sectionbox=0pt}
+
+\defbeamertemplate*{footline}{cnmbeamer}{%
+ {\usebeamercolor[fg]{upper separation line foot}\hrule height1.5pt}%
+ \begin{beamercolorbox}{section in head/foot}%
+  \usebeamercolor[fg]{section in head/foot}%
+  \setbox\@tempboxa=\hbox{\insertnavigation}%
+  \setbox0=\hbox{\footnotesize\insertlastframeofpart%
+   \ifbeamer@showpagetotal/\insertlastframeofpart\fi}%
+  \vskip2pt\leavevmode%
+  \hbox to\paperwidth\bgroup%
+   \llap{\footnotesize\phantom{01234/56789}}%
+   \ifbeamer@sidebar\ifx\beamer@sidebarside\beamer@lefttext%
+	\hbox to\beamer@sidebarwidth{\hfil%
+	 \ifbeamer@showpagenr%
+	  \footnotesize\insertframenumber%
+	  \ifbeamer@showpagetotal/\insertlastframeofpart\fi%
+	 \else\vrule width0pt height\ht0 depth\dp0\fi\hfil}%
+   \fi\fi%
+   \hskip\beamer@leftmargin\box\@tempboxa\hfil%
+   \raise.25ex\box\beamer@sectionbox\hskip\beamer@rightmargin%
+   \ifbeamer@sidebar\ifx\beamer@sidebarside\beamer@lefttext\else%
+	\hbox to\beamer@sidebarwidth{\hfil%
+	 \ifbeamer@showpagenr%
+	  \footnotesize\insertframenumber%
+	  \ifbeamer@showpagetotal/\insertlastframeofpart\fi%
+	 \else\vrule width0pt height\ht0 depth\dp0\fi\hfil}%
+   \fi\else%
+	\ifbeamer@showpagenr%
+	 \hbox to\wd0{\hfil\footnotesize\insertframenumber%
+	  \ifbeamer@showpagetotal/\insertlastframeofpart\fi}%
+	 \hskip3pt%
+	\else\vrule width0pt height\ht0 depth\dp0\fi%
+   \fi%
+  \egroup%
+  \vskip2pt%
+ \end{beamercolorbox}}
+
+\mode<all>

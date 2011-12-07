@@ -1,0 +1,68 @@
+% cnmbeamer theme 2009/11/01
+%
+% Copyright (c) 2006,2007,2008,2009 Wouter Kager
+%
+% Permission is hereby granted, free of charge, to any person obtaining a copy
+% of this software and associated documentation files (the "Software"), to
+% deal in the Software without restriction, including without limitation the
+% rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+% sell copies of the Software, and to permit persons to whom the Software is
+% furnished to do so, subject to the following conditions:
+%
+% The above copyright notice and this permission notice shall be included in
+% all copies or substantial portions of the Software.
+% 
+% THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+% IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+% FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+% AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+% LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+% FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+% IN THE SOFTWARE.
+
+\RequirePackage{beamerbasethemes}
+
+\DeclareOptionBeamer{showpagenr}[true]%
+ {\PassOptionsToPackage{showpagenr=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{showpagetotal}[true]%
+ {\PassOptionsToPackage{showpagetotal=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{showsection}[true]%
+ {\PassOptionsToPackage{showsection=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{sidebar}[right]%
+ {\PassOptionsToPackage{sidebar=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{hideother}%
+ {\PassOptionsToPackage{hideother}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{hideall}%
+ {\PassOptionsToPackage{hideall}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{miniframes}[true]%
+ {\PassOptionsToPackage{miniframes=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{beamernav}[true]%
+ {\PassOptionsToPackage{beamernav=#1}{beamerouterthemecnmbeamer}}
+
+\DeclareOptionBeamer{invert}[true]%
+ {\PassOptionsToPackage{invert=#1}{beamercolorthemecnmbeamer}}
+
+\only<handout| trans>{%
+ \PassOptionsToPackage{miniframes=false}{beamerouterthemecnmbeamer}%
+ \PassOptionsToPackage{invert=true}{beamercolorthemecnmbeamer}}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\useinnertheme{cnmbeamer}
+\useoutertheme{cnmbeamer}
+\usecolortheme{cnmbeamer}
+\usefonttheme{cnmbeamer}
+
+\hypersetup{pdfpagemode={FullScreen},colorlinks=true,%
+linkcolor=headercolor,urlcolor=headercolor}
+
+\mode<all>
