@@ -2,7 +2,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%% Do not change this %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usetheme[sidebar,invert]{cnmbeamer}
+
 \usepackage[absolute,overlay]{textpos}
+
+%\logo{\includegraphics[height=0.10\paperheight]{Logo_IST_simple_color.jpg}}
+%This requires to add \MyLogo to every frame you want to put the logo in.
+\pgfdeclareimage[height=0.5cm]{logoIST}{Logo_IST_simple_color.jpg}
+\pgfdeclareimage[height=0.8cm]{logoINESC}{inescID}
+
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
 \newcommand{\MyLogo}{%
@@ -10,18 +17,13 @@
   \vbox{\hbox to 2.17cm{\hfil\pgfuseimage{logoIST}}\vskip-1.2cm\hbox{\pgfuseimage{logoINESC}}}
 \end{textblock}
 }
-
-%\logo{\includegraphics[height=0.10\paperheight]{Logo_IST_simple_color.jpg}}
-%This requires to add \MyLogo to every frame you want to put the logo in.
-\pgfdeclareimage[height=0.6cm]{logoIST}{Logo_IST_simple_color.jpg}
-\pgfdeclareimage[height=0.8cm]{logoINESC}{inescID}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%% Change after here %%%%
 
 
 \title{Theme Title}
-\author{Group number\\ NUMBER Name Surname\\ NUMBER Name Surname\\ NUMBER Name Surname}
+\author{NUMBER Name Surname\\ NUMBER Name Surname\\ NUMBER Name Surname}
 \date{\today}
 
 \begin{document}
