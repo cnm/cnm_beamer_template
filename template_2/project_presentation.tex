@@ -1,0 +1,80 @@
+\documentclass[smaller]{beamer}
+%\documentclass[t]{beamer}
+\usetheme[sidebar,invert]{Amsterdam}
+
+\usepackage[portuges,english]{babel}
+\usepackage[latin1]{inputenc}
+
+\usepackage{graphicx}
+\usepackage{epstopdf}
+
+\usepackage{pgf}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage[printonlyused,nolist]{acronym}
+\usepackage{wrapfig}
+\usepackage[hang,small,bf]{subfigure}
+\usepackage{sidecap}
+\usepackage{caption}
+\usepackage{soul} % For text highlighting with \hl
+
+\makeatletter
+\newcommand\SoulColor{%
+  \let\set@color\beamerorig@set@color
+  \let\reset@color\beamerorig@reset@color}
+\makeatother
+
+% Retirar os simbolos de navegacao
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize subitem}[triangle]
+
+% Inserir numero das paginas
+\newcommand*\oldmacro{}
+\let\oldmacro\insertshortauthor% save previous definition
+\renewcommand*\insertshortauthor{%
+\leftskip=.3cm% before the author could be a plus1fill ...
+\insertframenumber\,/\,\inserttotalframenumber\hfill\oldmacro}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                               Just change this
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Presentation Title}
+\author{Presentation Author 1\\ Presentation Author 2}
+\institute{Communication Networks Engineering, INESC-ID \\Instituto Superior T\'{e}cnico, Taguspark, Lisbon}
+\date{14th November 1100 (CHANGE IT)}
+\logo{\pgfputat{\pgfxy(-12.3,0)}{\pgfbox[left,base]{\pgfimage[width=2cm]{LogoIST-new}}}
+			\pgfputat{\pgfxy(-2.8,0)}{\pgfbox[left,base]{\pgfimage[width=2.5cm]{inescID}}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% End of part to change %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{makeidx}
+\makeindex
+
+\definecolor{ist-font-color}{rgb}{70,85,95}
+\sethlcolor{cyan}
+\newcommand{\hilight}[1]{\colorbox{cyan}{#1}}
+\setbeamercolor{banner}{bg=cyan}
+
+%\makeatletter
+%\setbeamertemplate{background}{
+%  \hspace{\beamer@leftmargin}%
+%  \begin{beamercolorbox}[wd=\paperwidth,ht=2cm]{banner}
+%  \end{beamercolorbox}
+%}
+%\makeatother
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[t]
+\vspace{-0.4cm}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+
+\end{document}
