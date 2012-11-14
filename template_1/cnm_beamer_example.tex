@@ -8,14 +8,15 @@
 
 %\logo{\includegraphics[height=0.10\paperheight]{Logo_IST_simple_color.jpg}}
 %This requires to add \MyLogo to every frame you want to put the logo in.
-\pgfdeclareimage[height=0.5cm]{logoIST}{Logo_IST_simple_color.jpg}
-\pgfdeclareimage[height=0.8cm]{logoINESC}{inescID}
+%\pgfdeclareimage[height=0.5cm]{logoIST}{Logo_IST_simple_color.jpg}
+%\pgfdeclareimage[height=0.8cm]{logoINESC}{inescID}
+\pgfdeclareimage[height=0.8cm]{logo}{logo.png}
 
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
 \newcommand{\MyLogo}{%
 \begin{textblock}{14}(105.0,5.0)
-  \vbox{\hbox to 2.17cm{\hfil\pgfuseimage{logoIST}}\vskip-1.2cm\hbox{\pgfuseimage{logoINESC}}}
+  \vbox{\hbox to 2.17cm{\hfil\pgfuseimage{logo}}}
 \end{textblock}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
